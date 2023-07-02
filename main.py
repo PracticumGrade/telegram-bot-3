@@ -3,8 +3,8 @@ from telegram import ReplyKeyboardMarkup
 from telegram.ext import CommandHandler, Updater, MessageHandler, Filters
 
 
-kitchen_chat_id = ...
-updater = Updater(token=...)
+kitchen_chat_id = ""
+updater = Updater(token="")
 menu_url = 'https://practicumgrade.github.io/course-material/bakery-menu.json'
 
 
