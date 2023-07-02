@@ -9,8 +9,15 @@ menu_url = 'https://practicumgrade.github.io/course-material/bakery-menu.json'
 
 
 def get_menu():
-    response = requests.get(menu_url).json()
-    return response
+    response = requests.get(menu_url)
+    response_json = response.json()
+    names = []
+    for position in response_json['positions']:
+        names.append(position['name'])
+    menu_prefix = 'Сегодня в меню: '
+    menu_names = ', '.join(names)
+    menu = menu_prefix + menu_names
+    return menu
 
 
 def show_menu(update, context):
@@ -20,15 +27,20 @@ def show_menu(update, context):
 
 def process_order(update, context):
     chat = update.effective_chat
-    if ...:
+    if update.message.text.startswith('Закажи'):
+        order_message_prefix = 'Новый заказ: '
         context.bot.send_message(
             chat_id=kitchen_chat_id,
-            text=...
+            text=order_message_prefix + update.message.text,
+        )
+        context.bot.send_message(
+            chat_id=chat.id,
+            text='Передали сообщение на кухню, приходите завтра за заказом в любое время!'
         )
     else:
         context.bot.send_message(
-            chat_id=kitchen_chat_id,
-            text=...
+            chat_id=chat.id,
+            text='Начните сообщение с «Закажи», чтобы передать заказ на кухню.'
         )
 
 
@@ -44,6 +56,10 @@ def wake_up(update, context):
     )
 
     context.bot.send_message(chat.id, get_menu())
+    context.bot.send_message(
+        chat_id=chat.id,
+        text='Начните сообщение с «Закажи», чтобы передать заказ на кухню.'
+    )
 
 
 updater.dispatcher.add_handler(CommandHandler('start', wake_up))

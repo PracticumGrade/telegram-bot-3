@@ -22,7 +22,7 @@ python -m venv venv
 . venv/Scripts/activate
 
 # Установить нужные зависимости
-(venv) ... pip install requests python-telegram-bot==13.7
+(venv) ... pip install requests python-dotenv python-telegram-bot==13.7
 ```
 
 Обратите внимание, что устанавливается именно python-telegram-bot версии 13.7.
